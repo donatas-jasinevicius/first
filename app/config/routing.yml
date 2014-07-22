@@ -1,0 +1,4 @@
+donce_currency_convert:
+    resource: "@DonceCurrencyConvertBundle/Resources/config/routing.xml"
+    prefix:   /
+

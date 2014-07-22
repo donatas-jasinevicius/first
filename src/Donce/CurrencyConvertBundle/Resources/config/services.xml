@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="donce_currency_convert.manager.currency_convert.class">Donce\CurrencyConvertBundle\Manager\CurrencyConvertExtensionManager</parameter>
+        <parameter key="donce_currency_convert.extension.lb.class">Donce\CurrencyConvertBundle\Extension\LBExtension</parameter>
+    </parameters>
+
+    <services>
+        <service id="donce_currency_convert.manager.currency_convert" class="%donce_currency_convert.manager.currency_convert.class%">
+        </service>
+
+        <service id="donce_currency_convert.extension.lb" class="%donce_currency_convert.extension.lb.class%">
+            <tag name="currency_convert.extension" alias="lb" />
+
+        </service>
+    </services>
+</container>
