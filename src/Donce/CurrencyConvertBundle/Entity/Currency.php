@@ -9,11 +9,29 @@
 namespace Donce\CurrencyConvertBundle\Entity;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class Currency
 {
+    /**
+     * @var int
+     */
     protected $id;
 
+    /**
+     * @var string
+     */
     protected $name;
+
+    /**
+     * @var CurrencyRate
+     */
+    protected $currencyRates;
+
+    public function __construct()
+    {
+        $this->currencyRates = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -41,5 +59,25 @@ class Currency
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @param CurrencyRate $currencyRates
+     *
+     * @return $this
+     */
+    public function setCurrencyRates($currencyRates)
+    {
+        $this->currencyRates = $currencyRates;
+
+        return $this;
+    }
+
+    /**
+     * @return CurrencyRate[]
+     */
+    public function getCurrencyRates()
+    {
+        return $this->currencyRates;
     }
 }

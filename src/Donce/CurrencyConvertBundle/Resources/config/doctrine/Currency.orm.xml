@@ -8,6 +8,11 @@
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO" />
         </id>
-        <field name="name" column="name" type="string" length="100" />
+        <field name="name" column="name" type="string" length="3" />
+
+        <one-to-many field="currencyRates"
+                     target-entity="CurrencyRate"
+                     mapped-by="baseCurrency"
+                />
     </entity>
 </doctrine-mapping>

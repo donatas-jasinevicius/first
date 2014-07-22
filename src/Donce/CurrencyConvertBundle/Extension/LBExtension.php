@@ -12,4 +12,16 @@ namespace Donce\CurrencyConvertBundle\Extension;
 class LBExtension implements CurrencyConvertExtensionInterface
 {
 
+    /**
+     * @var string
+     */
+    private $url = 'http://webservices.lb.lt/ExchangeRates/ExchangeRates.asmx/getExchangeRate';
+
+    /**
+     *
+     */
+    public function getRate()
+    {
+
+    }
 }

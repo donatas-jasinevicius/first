@@ -11,8 +11,8 @@ namespace Donce\CurrencyConvertBundle\Service;
 
 class CurrencyConvertService
 {
-    public function convertCurrency($currencyFrom, $currencyTo, $amount)
+    public function convertCurrency($amount, $currencyFrom, $currencyTo, $date)
     {
-
+        
     }
 }
