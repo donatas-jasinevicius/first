@@ -25,8 +25,5 @@ class DonceCurrencyConvertExtension extends Extension
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
-
-        $container = new ContainerBuilder();
-        $container->addCompilerPass(new CurrencyConvertCompilerPass());
     }
 }

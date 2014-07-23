@@ -17,22 +17,22 @@ class CurrencyConvertCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('donce_currency_convert.manager.currency_convert')) {
+        if (!$container->hasDefinition('donce_currency_convert.extension.manager')) {
             return;
         }
 
         $definition = $container->getDefinition(
-            'donce_currency_convert.manager.currency_convert'
+            'donce_currency_convert.extension.manager'
         );
 
         $taggedServices = $container->findTaggedServiceIds(
-            'currency_convert.extension'
+            'currency_convert.rate_extension'
         );
 
         foreach ($taggedServices as $id => $attributes) {
             $definition->addMethodCall(
                 'addExtension',
-                array(new Reference($id), $attributes['alias'])
+                array(new Reference($id))
             );
         }
     }

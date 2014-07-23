@@ -1,19 +1,22 @@
-$(function() {
-    $( ".datepicker" ).datepicker({ dateFormat: "yy-mm-dd" });
+$(function () {
 
-    $('#convert_form').submit(function(e) {
+    function init_datepicker() {
+        $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" });
+    }
 
-        var url = $(this).attr("action");
+    init_datepicker();
+
+    $('#convert_form_container').bind('submit', '#currency_convert_submit', function (e) {
+        var $form = $("#convert_form");
 
         $.ajax({
             type: "POST",
-            url: url, // Or your url generator like Routing.generate('discussion_create')
-            data: $(this).serialize(),
+            url: $form.attr("action"),
+            data: $form.serialize(),
             dataType: "html",
-            success: function(msg){
-
-                alert("Success!");
-
+            success: function (response) {
+                $("#convert_form_container").html(response);
+                init_datepicker();
             }
         });
 

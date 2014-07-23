@@ -7,4 +7,8 @@
     <route id="donce_currency_convert_convert" path="/convert">
         <default key="_controller">DonceCurrencyConvertBundle:Default:convert</default>
     </route>
+
+    <route id="donce_currency_convert_update" path="/update">
+        <default key="_controller">DonceCurrencyConvertBundle:Update:update</default>
+    </route>
 </routes>

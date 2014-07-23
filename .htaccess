@@ -3,14 +3,15 @@
     RewriteEngine On
 
     # Explicitly disable rewriting for front controllers
-    RewriteRule ^/web/app_dev.php - [L]
-    RewriteRule ^/web/app.php - [L]
-
-    # Fix the bundles folder
-    RewriteRule ^bundles/(.*)$ /web/bundles/$1  [QSA,L]
+    RewriteRule ^app_dev.php - [L]
+    RewriteRule ^app.php - [L]
 
     RewriteCond %{REQUEST_FILENAME} !-f
+
+    # Fix the bundles folder
+        RewriteRule ^bundles/(.*)$ /web/bundles/$1  [QSA,L]
+
     # Change below before deploying to production
-    #RewriteRule ^(.*)$ /web/app.php [QSA,L]
-    RewriteRule ^(.*)$ /web/app_dev.php [QSA,L]
+    #RewriteRule ^(.*)$ app.php [QSA,L]
+    RewriteRule ^(.*)$ web/app_dev.php [QSA,L]
 </IfModule>

@@ -8,22 +8,36 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
+    private function getCurrencyConvertService()
+    {
+        return $this->get('donce_currency_convert.service.currency_convert');
+    }
+
+    private function getExtensionManager()
+    {
+        return $this->get('donce_currency_convert.extension.manager');
+    }
+
     public function convertAction(Request $request)
     {
-
         $form = $this->createForm(new CurrencyConvertFormType());
 
         if (true === $request->isMethod('POST')) {
-
             $form->submit($request);
             if ($form->isValid()) {
-                $formData = $form->getData();
 
-                $data['result'] = $formData['amount'] * 1.3;
+                $convertService = $this->getCurrencyConvertService();
+
+                $formData = $form->getData();
+                $data['result'] = $convertService->convertCurrency();
             }
         }
 
         $data['form'] = $form->createView();
+
+        if ($request->isXmlHttpRequest()) {
+            return $this->render('DonceCurrencyConvertBundle:Default:form.html.twig', $data);
+        }
 
         return $this->render('DonceCurrencyConvertBundle:Default:convert.html.twig', $data);
     }
