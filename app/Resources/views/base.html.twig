@@ -3,11 +3,31 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+
+        {% block stylesheets -%}
+            {# COMBINED styles #}
+            {%- stylesheets output='css/compiled.css'
+            '%kernel.root_dir%/Resources/public/css/jquery-ui.min.css'
+
+            %}
+            <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="all"/>
+            {% endstylesheets -%}
+        {% endblock stylesheets -%}
+
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+        {% block javascripts %}
+            {% javascripts output="js/compiled.js"
+            '%kernel.root_dir%/Resources/public/js/jquery-1.11.1.min.js'
+            '%kernel.root_dir%/Resources/public/js/jquery-ui.min.js'
+
+            %}
+                <script src="{{ asset_url }}" type="text/javascript"></script>
+            {% endjavascripts %}
+
+        {% endblock %}
     </head>
     <body>
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
     </body>
 </html>

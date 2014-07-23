@@ -13,6 +13,6 @@ class CurrencyConvertService
 {
     public function convertCurrency($amount, $currencyFrom, $currencyTo, $date)
     {
-        
+
     }
 }

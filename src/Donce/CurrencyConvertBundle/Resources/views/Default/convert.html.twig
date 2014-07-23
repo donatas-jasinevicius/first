@@ -1,0 +1,23 @@
+{% extends "::base.html.twig" %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/doncecurrencyconvert/js/convert.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    {{ form_start(form, {'attr': {'id': 'convert_form'}}) }}
+
+        {{ form_label(form.date) }}
+        {{ form_errors(form.date) }}
+        {{ form_widget(form.date, {'attr': {'class': 'datepicker'}}) }}
+
+
+        {{ form_rest(form) }}
+
+    {{ form_end(form) }}
+
+    {% if result is defined %}
+        Rezulatatas: {{ result }}
+    {% endif %}
+{% endblock %}
