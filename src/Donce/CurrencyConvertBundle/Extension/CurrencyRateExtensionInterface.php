@@ -19,6 +19,7 @@ interface CurrencyRateExtensionInterface
      * @return bool|array
      */
     public function loadRatesByDate(\DateTime $date);
+
     /**
      * Get extensions priority (higher first).
      *

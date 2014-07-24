@@ -14,7 +14,7 @@ use Donce\CurrencyConvertBundle\Entity\CurrencyRate;
 use Donce\CurrencyConvertBundle\Manager\ExtensionManager;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-class CurrencyRateService
+class CurrencyRateService implements CurrencyRateServiceInterface
 {
     /**
      * @var ExtensionManager
@@ -42,11 +42,7 @@ class CurrencyRateService
     }
 
     /**
-     * Load rates to databse by date.
-     *
-     * @param \DateTime $date
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function loadRatesByDate(\DateTime $date)
     {
@@ -63,7 +59,8 @@ class CurrencyRateService
                 $this->loadCurrencies();
                 foreach ($rates as $rate) {
                     if (true === isset($this->currencies[$rate['currency']])
-                        && true === isset($this->currencies[$rate['baseCurrency']])) {
+                        && true === isset($this->currencies[$rate['baseCurrency']])
+                    ) {
 
                         $currencyRate = new CurrencyRate();
                         $currencyRate->setDate($rate['date']);

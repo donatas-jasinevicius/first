@@ -30,6 +30,8 @@ class CurrencyRateRepository extends EntityRepository
     }
 
     /**
+     * Get rate entity.
+     *
      * @param \DateTime $date
      * @param Currency $currencyFrom
      * @param Currency $currencyTo
@@ -68,6 +70,8 @@ class CurrencyRateRepository extends EntityRepository
     }
 
     /**
+     * Get two rate entities connect on base currency.
+     *
      * @param \DateTime $date
      * @param Currency $currencyFrom
      * @param Currency $currencyTo

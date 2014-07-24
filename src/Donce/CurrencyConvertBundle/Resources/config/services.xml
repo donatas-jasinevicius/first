@@ -7,8 +7,6 @@
     <parameters>
         <parameter key="donce_currency_convert.extension.manager.class">Donce\CurrencyConvertBundle\Manager\ExtensionManager</parameter>
         <parameter key="donce_currency_convert.extension.lb.class">Donce\CurrencyConvertBundle\Extension\LBExtension</parameter>
-        <parameter key="donce_currency_convert.extension.some.class">Donce\CurrencyConvertBundle\Extension\SomeExtension</parameter>
-        <parameter key="donce_currency_convert.extension.some_second.class">Donce\CurrencyConvertBundle\Extension\SomeSecondExtension</parameter>
         <parameter key="donce_currency_convert.service.currency_convert.class">Donce\CurrencyConvertBundle\Service\CurrencyConvertService</parameter>
         <parameter key="donce_currency_convert.service.currency_rate.class">Donce\CurrencyConvertBundle\Service\CurrencyRateService</parameter>
         <parameter key="donce_currency_convert.service.currency_converter.default.class">Donce\CurrencyConvertBundle\Service\DefaultCurrencyConverter</parameter>
@@ -22,16 +20,6 @@
             <tag name="currency_convert.rate_extension" alias="lb" />
 
             <argument type="service" id="jms_serializer" />
-        </service>
-
-        <service id="donce_currency_convert.extension.some" class="%donce_currency_convert.extension.some.class%">
-            <tag name="currency_convert.rate_extension" alias="some" />
-
-        </service>
-
-        <service id="donce_currency_convert.extension.some_second" class="%donce_currency_convert.extension.some_second.class%">
-            <tag name="currency_convert.rate_extension" alias="some_second" />
-
         </service>
 
         <service id="donce_currency_convert.service.currency_convert" class="%donce_currency_convert.service.currency_convert.class%">

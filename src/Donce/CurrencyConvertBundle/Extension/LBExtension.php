@@ -29,7 +29,9 @@ class LBExtension implements CurrencyRateExtensionInterface
      */
     private $baseCurrency = 'LTL';
 
-
+    /**
+     * @param Serializer $serializer
+     */
     public function __construct(Serializer $serializer)
     {
         $this->serializer = $serializer;

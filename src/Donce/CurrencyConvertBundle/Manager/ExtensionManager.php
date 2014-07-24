@@ -24,8 +24,6 @@ class ExtensionManager
     private $sorted = false;
 
     /**
-     * Add currency rate extension.
-     *
      * @param CurrencyRateExtensionInterface $extension
      */
     public function addExtension(CurrencyRateExtensionInterface $extension)
@@ -37,8 +35,6 @@ class ExtensionManager
     }
 
     /**
-     * Get extensions.
-     *
      * @return CurrencyRateExtensionInterface[]
      */
     public function getExtensions()

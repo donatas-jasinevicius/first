@@ -45,7 +45,7 @@ class CurrencyConvertService
     /**
      * @param float $amount
      * @param Currency $currencyFrom
-     * @param Currency$currencyTo
+     * @param Currency $currencyTo
      * @param \DateTime $date
      * @return bool|float
      */
@@ -81,7 +81,7 @@ class CurrencyConvertService
      *
      * @param float $amount
      * @param Currency $currencyFrom
-     * @param Currency$currencyTo
+     * @param Currency $currencyTo
      * @param \DateTime $date
      * @return bool|float
      */

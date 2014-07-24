@@ -9,15 +9,20 @@
 namespace Donce\CurrencyConvertBundle\Controller;
 
 
+use Donce\CurrencyConvertBundle\Service\CurrencyRateService;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\Response;
 
 class UpdateController extends ContainerAware
 {
+    /**
+     * @return CurrencyRateService
+     */
     private function getCurrencyRateService()
     {
         return $this->container->get('donce_currency_convert.service.currency_rate');
     }
+
     public function updateAction()
     {
         $date = new \DateTime();

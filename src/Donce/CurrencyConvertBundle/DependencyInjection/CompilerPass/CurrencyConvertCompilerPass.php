@@ -15,6 +15,9 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class CurrencyConvertCompilerPass implements CompilerPassInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public function process(ContainerBuilder $container)
     {
         if (!$container->hasDefinition('donce_currency_convert.extension.manager')) {

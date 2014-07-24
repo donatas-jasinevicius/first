@@ -8,7 +8,7 @@
             repository-class="Donce\CurrencyConvertBundle\Entity\Repository\CurrencyRateRepository">
 
         <unique-constraints>
-            <!--<unique-constraint columns="date,currency,base_currency" name="date_currency_base_currency" />-->
+            <unique-constraint columns="date,currency,base_currency" name="date_currency_base_currency" />
         </unique-constraints>
 
         <id name="id" type="integer" column="id">
