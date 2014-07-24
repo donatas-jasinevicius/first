@@ -79,7 +79,12 @@ class CurrencyRateRepository extends EntityRepository
         $qb = $this->createQueryBuilder('cr');
 
         $qb->select('cr, crj');
-        $qb->innerJoin('Donce\CurrencyConvertBundle\Entity\CurrencyRate', 'crj', Join::WITH, 'cr.baseCurrency = crj.baseCurrency');
+        $qb->innerJoin(
+            'Donce\CurrencyConvertBundle\Entity\CurrencyRate',
+            'crj',
+            Join::WITH,
+            'cr.baseCurrency = crj.baseCurrency'
+        );
         $qb->where(
             $qb->expr()->andX(
                 $qb->expr()->eq('cr.date', ':date'),
@@ -96,8 +101,7 @@ class CurrencyRateRepository extends EntityRepository
         $qb->setParameter('currencyFrom', $currencyFrom);
 
         $result = $qb->getQuery()->getResult();
-var_dump($result);die;
-        return $result;
 
+        return $result;
     }
 }

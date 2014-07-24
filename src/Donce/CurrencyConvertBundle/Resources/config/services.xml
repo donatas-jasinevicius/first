@@ -11,6 +11,7 @@
         <parameter key="donce_currency_convert.extension.some_second.class">Donce\CurrencyConvertBundle\Extension\SomeSecondExtension</parameter>
         <parameter key="donce_currency_convert.service.currency_convert.class">Donce\CurrencyConvertBundle\Service\CurrencyConvertService</parameter>
         <parameter key="donce_currency_convert.service.currency_rate.class">Donce\CurrencyConvertBundle\Service\CurrencyRateService</parameter>
+        <parameter key="donce_currency_convert.service.currency_converter.default.class">Donce\CurrencyConvertBundle\Service\DefaultCurrencyConverter</parameter>
     </parameters>
 
     <services>
@@ -36,11 +37,15 @@
         <service id="donce_currency_convert.service.currency_convert" class="%donce_currency_convert.service.currency_convert.class%">
             <argument type="service" id="donce_currency_convert.service.currency_rate" />
             <argument type="service" id="doctrine" />
+            <argument type="service" id="donce_currency_convert.service.currency_converter.default" />
         </service>
 
         <service id="donce_currency_convert.service.currency_rate" class="%donce_currency_convert.service.currency_rate.class%">
             <argument type="service" id="donce_currency_convert.extension.manager" />
             <argument type="service" id="doctrine" />
+        </service>
+
+        <service id="donce_currency_convert.service.currency_converter.default" class="%donce_currency_convert.service.currency_converter.default.class%">
         </service>
     </services>
 </container>

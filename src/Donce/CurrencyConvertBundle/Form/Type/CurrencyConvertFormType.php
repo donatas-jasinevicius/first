@@ -11,6 +11,7 @@ namespace Donce\CurrencyConvertBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class CurrencyConvertFormType extends AbstractType
 {
@@ -24,7 +25,8 @@ class CurrencyConvertFormType extends AbstractType
             'date',
             'date',
             array(
-                'widget' => 'single_text'
+                'widget' => 'single_text',
+                'constraints' => array(new NotBlank()),
             )
         );
 
@@ -51,6 +53,7 @@ class CurrencyConvertFormType extends AbstractType
             'money',
             array(
                 'currency' => false,
+                'constraints' => array(new NotBlank()),
             )
         );
 

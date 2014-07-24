@@ -11,7 +11,9 @@
     # Fix the bundles folder
         RewriteRule ^bundles/(.*)$ /web/bundles/$1  [QSA,L]
 
-    # Change below before deploying to production
-    #RewriteRule ^(.*)$ app.php [QSA,L]
-    RewriteRule ^(.*)$ web/app_dev.php [QSA,L]
+    RewriteCond %{REQUEST_URI} \.(ico|pdf|flv|jpg|jpeg|png|gif|bundles|css|swf|js)$ [NC]
+    RewriteRule ^(.*)$ web/$1 [L]
+
+        RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ web/app_dev.php/$1 [QSA,L]
 </IfModule>
