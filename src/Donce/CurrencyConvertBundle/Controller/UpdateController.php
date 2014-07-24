@@ -9,13 +9,14 @@
 namespace Donce\CurrencyConvertBundle\Controller;
 
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\HttpFoundation\Response;
 
-class UpdateController extends Controller
+class UpdateController extends ContainerAware
 {
     private function getCurrencyRateService()
     {
-        return $this->get('donce_currency_convert.service.currency_rate');
+        return $this->container->get('donce_currency_convert.service.currency_rate');
     }
     public function updateAction()
     {
@@ -23,7 +24,14 @@ class UpdateController extends Controller
 
         $rateService = $this->getCurrencyRateService();
 
-        $rateService->loadRatesByDate($date);
+        $result = $rateService->loadRatesByDate($date);
 
+        if (true === $result) {
+            $response = 'Updated successfully.';
+        } else {
+            $response = 'Update failed.';
+        }
+
+        return new Response($response);
     }
 }

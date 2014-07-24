@@ -32,14 +32,14 @@ class LBCurrencyRateItem
     /**
      * @var string
      * @SerializedName("quantity")
-     * @Type("string")
+     * @Type("integer")
      */
     private $quantity;
 
     /**
      * @var string
      * @SerializedName("rate")
-     * @Type("string")
+     * @Type("float")
      */
     private $rate;
 

@@ -22,7 +22,7 @@ class SomeSecondExtension implements CurrencyRateExtensionInterface
      */
     public function loadRatesByDate(\DateTime $date)
     {
-
+        return false;
     }
 
     /**

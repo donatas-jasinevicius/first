@@ -9,6 +9,6 @@
 
 {{ form_end(form) }}
 
-{% if result is defined %}
+{% if result is defined and result != false %}
     Result: {{ result }}
 {% endif %}

@@ -4,7 +4,8 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                     http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Donce\CurrencyConvertBundle\Entity\CurrencyRate" table="currency_rate">
+    <entity name="Donce\CurrencyConvertBundle\Entity\CurrencyRate" table="currency_rate"
+            repository-class="Donce\CurrencyConvertBundle\Entity\Repository\CurrencyRateRepository">
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO" />
         </id>
@@ -16,7 +17,6 @@
         <many-to-one field="baseCurrency"
                      target-entity="Currency"
                      inversed-by="currencyRates"
-                     join-column="baseCurrency"
                 >
             <join-column
                     name="base_currency"

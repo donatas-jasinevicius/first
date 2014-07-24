@@ -34,10 +34,13 @@
         </service>
 
         <service id="donce_currency_convert.service.currency_convert" class="%donce_currency_convert.service.currency_convert.class%">
+            <argument type="service" id="donce_currency_convert.service.currency_rate" />
+            <argument type="service" id="doctrine" />
         </service>
 
         <service id="donce_currency_convert.service.currency_rate" class="%donce_currency_convert.service.currency_rate.class%">
             <argument type="service" id="donce_currency_convert.extension.manager" />
+            <argument type="service" id="doctrine" />
         </service>
     </services>
 </container>

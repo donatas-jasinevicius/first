@@ -9,12 +9,11 @@
 namespace Donce\CurrencyConvertBundle\Extension;
 
 
+use Donce\CurrencyConvertBundle\Model\LBCurrencyRateItem;
 use JMS\Serializer\Serializer;
 
 class LBExtension implements CurrencyRateExtensionInterface
 {
-
-
     /**
      * @var string
      */
@@ -24,6 +23,11 @@ class LBExtension implements CurrencyRateExtensionInterface
      * @var Serializer
      */
     private $serializer;
+
+    /**
+     * @var string
+     */
+    private $baseCurrency = 'LTL';
 
 
     public function __construct(Serializer $serializer)
@@ -35,6 +39,35 @@ class LBExtension implements CurrencyRateExtensionInterface
      * {@inheritdoc}
      */
     public function loadRatesByDate(\DateTime $date)
+    {
+        $xml = $this->getXml($date);
+
+        $lbRates = $this->serializer->deserialize($xml, 'Donce\CurrencyConvertBundle\Model\LBRates', 'xml');
+
+        if (true === empty($lbRates->getItems())) {
+            return false;
+        }
+
+        $result = array();
+        /** @var LBCurrencyRateItem $lbRate */
+        foreach ($lbRates->getItems() as $lbRate) {
+            $result[] = array(
+                'date' => \DateTime::createFromFormat('Y.m.d', $lbRate->getDate()),
+                'currency' => $lbRate->getCurrency(),
+                'baseCurrency' => $this->baseCurrency,
+                'rate' => $lbRate->getRate() / $lbRate->getQuantity(),
+            );
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param $date
+     *
+     * @return string
+     */
+    private function getXml($date)
     {
         $post['Date'] = $date->format('Y-m-d');
 
@@ -48,22 +81,12 @@ class LBExtension implements CurrencyRateExtensionInterface
         curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($post));
 
         //execute post
-        $result = curl_exec($curl);
+        $xml = curl_exec($curl);
 
         //close connection
         curl_close($curl);
 
-        $result = '<ExchangeRates>
-        <item>
-        <date>2012.12.01</date><currency>AED</currency><quantity>10</quantity><rate>7.2832</rate><unit>LTL per 10 currency units</unit>
-        </item>
-        <item>
-        <date>2012.12.01</date><currency>AFN</currency><quantity>100</quantity><rate>5.0493</rate><unit>LTL per 100 currency units</unit>
-        </item>
-        </ExchangeRates>';
-        $data = $this->serializer->deserialize($result, 'Donce\CurrencyConvertBundle\Model\LBRates', 'xml');
-        var_dump($data);die('wtf');
-
+        return $xml;
     }
 
     /**

@@ -13,11 +13,6 @@ class DefaultController extends Controller
         return $this->get('donce_currency_convert.service.currency_convert');
     }
 
-    private function getExtensionManager()
-    {
-        return $this->get('donce_currency_convert.extension.manager');
-    }
-
     public function convertAction(Request $request)
     {
         $form = $this->createForm(new CurrencyConvertFormType());
@@ -25,11 +20,15 @@ class DefaultController extends Controller
         if (true === $request->isMethod('POST')) {
             $form->submit($request);
             if ($form->isValid()) {
-
                 $convertService = $this->getCurrencyConvertService();
 
                 $formData = $form->getData();
-                $data['result'] = $convertService->convertCurrency();
+                $data['result'] = $convertService->convertCurrency(
+                    $formData['amount'],
+                    $formData['currencyFrom'],
+                    $formData['currencyTo'],
+                    $formData['date']
+                );
             }
         }
 
