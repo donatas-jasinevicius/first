@@ -13,7 +13,7 @@ use Donce\CurrencyConvertBundle\Service\DefaultCurrencyConverter;
 
 class DefaultCurrencyConverterTest extends \PHPUnit_Framework_TestCase
 {
-    public function testConvert()
+    public function testConvertAndInverseConvert()
     {
         $converter = new DefaultCurrencyConverter();
 
