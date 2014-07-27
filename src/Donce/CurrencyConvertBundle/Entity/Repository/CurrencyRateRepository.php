@@ -76,7 +76,7 @@ class CurrencyRateRepository extends EntityRepository
      * @param Currency $currencyFrom
      * @param Currency $currencyTo
      *
-     * @return CurrencyRate
+     * @return CurrencyRate[]
      */
     public function getJoinedRates(\DateTime $date, Currency $currencyFrom, Currency $currencyTo)
     {

@@ -60,9 +60,9 @@ class CurrencyConvertService
 
         //If rate not found try to load from services and then convert
         if (false === $result) {
-            $this->currencyRateService->loadRatesByDate($date);
-
-            $result = $this->tryConvert($amount, $currencyFrom, $currencyTo, $date);
+            if (true === $this->currencyRateService->loadRatesByDate($date)) {
+                $result = $this->tryConvert($amount, $currencyFrom, $currencyTo, $date);
+            }
         }
 
         return $result;
