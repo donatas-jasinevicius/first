@@ -114,6 +114,10 @@ class CurrencyConvertServiceTest extends \PHPUnit_Framework_TestCase
             34.5,
             $this->service->convertCurrency(10, $this->currencies['EUR'], $this->currencies['LTL'], $date)
         );
+        $this->assertEquals(
+            10,
+            $this->service->convertCurrency(10, $this->currencies['EUR'], $this->currencies['EUR'], $date)
+        );
     }
 
     public function testConvertCurrencyJoinEntity()
