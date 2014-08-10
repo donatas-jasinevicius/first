@@ -98,25 +98,23 @@ class CurrencyConvertServiceTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    public function testConvertCurrencyOneEntity()
+    /**
+     * @dataProvider convertCurrencyOneEntityProvider
+     */
+    public function testConvertCurrencyOneEntity($amount, $currencyFrom, $currencyTo, $date, $result)
     {
-        $date = new \DateTime();
-
         $this->repository->expects($this->any())
             ->method('getRate')
             ->will($this->returnValue($this->currencyRates['ltlToEurRate']));
 
         $this->assertEquals(
-            2.9,
-            $this->service->convertCurrency(10, $this->currencies['LTL'], $this->currencies['EUR'], $date)
-        );
-        $this->assertEquals(
-            34.5,
-            $this->service->convertCurrency(10, $this->currencies['EUR'], $this->currencies['LTL'], $date)
-        );
-        $this->assertEquals(
-            10,
-            $this->service->convertCurrency(10, $this->currencies['EUR'], $this->currencies['EUR'], $date)
+            $result,
+            $this->service->convertCurrency(
+                $amount,
+                $this->currencies[$currencyFrom],
+                $this->currencies[$currencyTo],
+                $date
+            )
         );
     }
 
@@ -124,36 +122,34 @@ class CurrencyConvertServiceTest extends \PHPUnit_Framework_TestCase
     {
         $date = new \DateTime();
 
-        $this->repository->expects($this->any())
+        $this->repository->expects($this->exactly(2))
             ->method('getRate')
             ->will($this->returnValue(false));
 
-        $this->repository->expects($this->any())
-            ->method('getJoinedRates')
-            ->will(
-                $this->returnValue(array($this->currencyRates['ltlToEurRate'], $this->currencyRates['ltlToUsdRate']))
+        $map =
+            array(
+                array(
+                    $date,
+                    $this->currencies['EUR'],
+                    $this->currencies['USD'],
+                    array($this->currencyRates['ltlToEurRate'], $this->currencyRates['ltlToUsdRate'])
+                ),
+                array(
+                    $date,
+                    $this->currencies['USD'],
+                    $this->currencies['EUR'],
+                    array($this->currencyRates['ltlToUsdRate'], $this->currencyRates['ltlToEurRate'])
+                ),
             );
+
+        $this->repository->expects($this->exactly(2))
+            ->method('getJoinedRates')
+            ->will($this->returnValueMap($map));
 
         $this->assertEquals(
             13.48,
             $this->service->convertCurrency(10, $this->currencies['EUR'], $this->currencies['USD'], $date)
         );
-    }
-
-    public function testConvertCurrencyJoinEntityReverse()
-    {
-        $date = new \DateTime();
-
-        $this->repository->expects($this->any())
-            ->method('getRate')
-            ->will($this->returnValue(false));
-
-        $this->repository->expects($this->any())
-            ->method('getJoinedRates')
-            ->will(
-                $this->returnValue(array($this->currencyRates['ltlToUsdRate'], $this->currencyRates['ltlToEurRate']))
-            );
-
         $this->assertEquals(
             7.42,
             $this->service->convertCurrency(10, $this->currencies['USD'], $this->currencies['EUR'], $date)
@@ -164,17 +160,29 @@ class CurrencyConvertServiceTest extends \PHPUnit_Framework_TestCase
     {
         $date = new \DateTime();
 
-        $this->repository->expects($this->any())
+        $this->repository->expects($this->once())
             ->method('getRate')
             ->will($this->returnValue(false));
 
-        $this->repository->expects($this->any())
+        $this->repository->expects($this->once())
             ->method('getJoinedRates')
             ->will($this->returnValue(array()));
 
         $this->assertEquals(
             false,
             $this->service->convertCurrency(10, $this->currencies['USD'], $this->currencies['EUR'], $date)
+        );
+    }
+
+    public function convertCurrencyOneEntityProvider()
+    {
+        $date = new \DateTime();
+
+        return array
+        (
+            array(10, 'LTL', 'EUR', $date, 2.9),
+            array(10, 'EUR', 'LTL', $date, 34.5),
+            array(10, 'EUR', 'EUR', $date, 10),
         );
     }
 }
