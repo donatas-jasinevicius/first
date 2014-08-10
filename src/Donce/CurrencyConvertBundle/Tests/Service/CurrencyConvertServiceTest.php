@@ -99,6 +99,12 @@ class CurrencyConvertServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param $amount
+     * @param $currencyFrom
+     * @param $currencyTo
+     * @param $date
+     * @param $result
+     *
      * @dataProvider convertCurrencyOneEntityProvider
      */
     public function testConvertCurrencyOneEntity($amount, $currencyFrom, $currencyTo, $date, $result)
@@ -178,8 +184,7 @@ class CurrencyConvertServiceTest extends \PHPUnit_Framework_TestCase
     {
         $date = new \DateTime();
 
-        return array
-        (
+        return array(
             array(10, 'LTL', 'EUR', $date, 2.9),
             array(10, 'EUR', 'LTL', $date, 34.5),
             array(10, 'EUR', 'EUR', $date, 10),

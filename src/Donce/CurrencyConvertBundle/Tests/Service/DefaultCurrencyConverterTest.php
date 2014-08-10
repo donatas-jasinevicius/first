@@ -13,14 +13,47 @@ use Donce\CurrencyConvertBundle\Service\DefaultCurrencyConverter;
 
 class DefaultCurrencyConverterTest extends \PHPUnit_Framework_TestCase
 {
-    public function testConvertAndInverseConvert()
+    /**
+     * @param $amount
+     * @param $rate
+     * @param $result
+     *
+     * @dataProvider convertDataProvider
+     */
+    public function testConvert($amount, $rate, $result)
     {
         $converter = new DefaultCurrencyConverter();
 
-        $this->assertEquals(36.83, $converter->convert(5.2621, 7));
-        $this->assertEquals(35, $converter->convert(5, 7));
+        $this->assertEquals($result, $converter->convert($amount, $rate));
+    }
 
-        $this->assertEquals(0.75, $converter->inverseConvert(5.2621, 7));
-        $this->assertEquals(0.71, $converter->inverseConvert(5, 7));
+    /**
+     * @param $amount
+     * @param $rate
+     * @param $result
+     *
+     * @dataProvider inverseConvertDataProvider
+     */
+    public function testInverseConvert($amount, $rate, $result)
+    {
+        $converter = new DefaultCurrencyConverter();
+
+        $this->assertEquals($result, $converter->inverseConvert($amount, $rate));
+    }
+
+    public function convertDataProvider()
+    {
+        return array(
+            array(5.2621, 7, 36.83),
+            array(5, 7, 35),
+        );
+    }
+
+    public function inverseConvertDataProvider()
+    {
+        return array(
+            array(5.2621, 7, 0.75),
+            array(5, 7, 0.71),
+        );
     }
 }
